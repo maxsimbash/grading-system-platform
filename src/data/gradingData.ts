@@ -1,177 +1,294 @@
-// 全球英语分级体系数据模型
+// 全球英语分级体系数据模型 - 以牛津树为主体，通过蓝思值和CEFR进行体系间映射
 
 export interface GradingLevel {
-  qiqixueLevel: string; // 奇奇学级别
-  chinaStandard: string; // 中国新课标
-  cambridgeExam: string; // 剑桥英语
-  cefr: string; // CEFR
-  lexileRange: string; // 蓝思值范围
-  oxfordTree: string; // 牛津阅读树
-  raz: string; // RAZ
-  heinemann: string; // 海尼曼
-  recommendedGrade: string; // 对应中国年级
+  oxfordLevel: string; // 牛津阅读树级别（主键）
+  lexileRange: string; // 蓝思值范围（基于牛津官方数据）
   lexileMin: number; // 蓝思值最小值（用于查询）
   lexileMax: number; // 蓝思值最大值（用于查询）
+  cefr: string; // CEFR（根据蓝思值映射）
+  chinaStandard: string; // 中国新课标（根据CEFR映射）
+  cambridgeExam: string; // 剑桥英语（根据CEFR映射）
+  raz: string; // RAZ（根据蓝思值映射）
+  heinemann: string; // 海尼曼（根据蓝思值映射）
+  recommendedAge: string; // 推荐年龄（基于牛津官方数据）
+  recommendedGrade: string; // 对应中国年级（根据CEFR和年龄综合判断）
 }
 
-// 注意：牛津树级别与蓝思值的对应关系基于牛津官方数据
-// 牛津树 Level 8-12 的蓝思值范围实际上高度重叠（530-690L），而非线性递增
+// 数据基于牛津官方对照表，共 20 个级别
+// 其他体系通过蓝思值和CEFR进行间接映射对齐
 export const gradingLevels: GradingLevel[] = [
   {
-    qiqixueLevel: "L1",
+    oxfordLevel: "Level 1",
+    lexileRange: "BR",
+    lexileMin: 0,
+    lexileMax: 0,
+    cefr: "< A1",
     chinaStandard: "预备级 (感知)",
     cambridgeExam: "Pre-Starters",
-    cefr: "< A1",
-    lexileRange: "BR-50L",
-    oxfordTree: "Level 1",
-    raz: "aa-A",
+    raz: "aa",
     heinemann: "GK (Level A)",
+    recommendedAge: "3-4岁",
     recommendedGrade: "学前小班/中班",
-    lexileMin: 0,
-    lexileMax: 50,
   },
   {
-    qiqixueLevel: "L2",
-    chinaStandard: "预备级 (积累)",
-    cambridgeExam: "Starters",
-    cefr: "< A1",
+    oxfordLevel: "Level 1+",
     lexileRange: "50L-170L",
-    oxfordTree: "Level 1+ / 2",
-    raz: "B-C",
-    heinemann: "GK (Level B-C)",
-    recommendedGrade: "学前大班/一年级",
     lexileMin: 50,
     lexileMax: 170,
+    cefr: "< A1",
+    chinaStandard: "预备级 (积累)",
+    cambridgeExam: "Starters",
+    raz: "A-B",
+    heinemann: "GK (Level B-C)",
+    recommendedAge: "3.5-5岁",
+    recommendedGrade: "学前大班",
   },
   {
-    qiqixueLevel: "L3",
+    oxfordLevel: "Level 2",
+    lexileRange: "150L-270L",
+    lexileMin: 150,
+    lexileMax: 270,
+    cefr: "A1",
     chinaStandard: "一级 (起步)",
     cambridgeExam: "Starters",
-    cefr: "A1",
-    lexileRange: "150L-350L",
-    oxfordTree: "Level 2 / 3",
-    raz: "D-E",
-    heinemann: "G1 (Level A-C)",
-    recommendedGrade: "二年级",
-    lexileMin: 150,
-    lexileMax: 350,
+    raz: "C-D",
+    heinemann: "GK (Level C) / G1 (Level A)",
+    recommendedAge: "3.5-5岁",
+    recommendedGrade: "一年级",
   },
   {
-    qiqixueLevel: "L4",
+    oxfordLevel: "Level 3",
+    lexileRange: "240L-350L",
+    lexileMin: 240,
+    lexileMax: 350,
+    cefr: "A1",
+    chinaStandard: "一级 (起步/进阶)",
+    cambridgeExam: "Starters / Movers",
+    raz: "E-F",
+    heinemann: "G1 (Level B-D)",
+    recommendedAge: "5-5.5岁",
+    recommendedGrade: "一年级/二年级",
+  },
+  {
+    oxfordLevel: "Level 4",
+    lexileRange: "300L-380L",
+    lexileMin: 300,
+    lexileMax: 380,
+    cefr: "A1",
     chinaStandard: "一级 (进阶)",
     cambridgeExam: "Movers",
-    cefr: "A1",
-    lexileRange: "240L-380L",
-    oxfordTree: "Level 3 / 4",
-    raz: "F-G",
-    heinemann: "G1 (Level D-F)",
-    recommendedGrade: "二年级/三年级",
-    lexileMin: 240,
-    lexileMax: 380,
+    raz: "G",
+    heinemann: "G1 (Level D-E)",
+    recommendedAge: "5-5.5岁",
+    recommendedGrade: "二年级",
   },
   {
-    qiqixueLevel: "L5",
+    oxfordLevel: "Level 5",
+    lexileRange: "350L-430L",
+    lexileMin: 350,
+    lexileMax: 430,
+    cefr: "A1+",
     chinaStandard: "一级+ (强化)",
     cambridgeExam: "Movers",
-    cefr: "A1+",
-    lexileRange: "300L-430L",
-    oxfordTree: "Level 4 / 5",
-    raz: "H-I",
-    heinemann: "G1 (Level G-J)",
-    recommendedGrade: "三年级",
-    lexileMin: 300,
-    lexileMax: 430,
+    raz: "H",
+    heinemann: "G1 (Level E-F)",
+    recommendedAge: "5.5-6岁",
+    recommendedGrade: "二年级/三年级",
   },
   {
-    qiqixueLevel: "L6",
+    oxfordLevel: "Level 6",
+    lexileRange: "400L-510L",
+    lexileMin: 400,
+    lexileMax: 510,
+    cefr: "A2",
     chinaStandard: "二级 (起步)",
     cambridgeExam: "Flyers",
-    cefr: "A2",
-    lexileRange: "350L-510L",
-    oxfordTree: "Level 5 / 6",
-    raz: "J-K",
-    heinemann: "G2 (Level B-E)",
-    recommendedGrade: "三年级/四年级",
-    lexileMin: 350,
-    lexileMax: 510,
+    raz: "I-J",
+    heinemann: "G1 (Level G-H) / G2 (Level B)",
+    recommendedAge: "6-6.5岁",
+    recommendedGrade: "三年级",
   },
   {
-    qiqixueLevel: "L7",
+    oxfordLevel: "Level 7",
+    lexileRange: "510L-550L",
+    lexileMin: 510,
+    lexileMax: 550,
+    cefr: "A2",
     chinaStandard: "二级 (进阶)",
     cambridgeExam: "Flyers",
-    cefr: "A2",
-    lexileRange: "400L-550L",
-    oxfordTree: "Level 6 / 7",
-    raz: "L-M",
-    heinemann: "G2 (Level F-J)",
-    recommendedGrade: "四年级",
-    lexileMin: 400,
-    lexileMax: 550,
+    raz: "K",
+    heinemann: "G2 (Level C-D)",
+    recommendedAge: "6.5-7岁",
+    recommendedGrade: "三年级/四年级",
   },
   {
-    qiqixueLevel: "L8",
+    oxfordLevel: "Level 8",
+    lexileRange: "530L-570L",
+    lexileMin: 530,
+    lexileMax: 570,
+    cefr: "A2+",
     chinaStandard: "二级+ (强化)",
     cambridgeExam: "KET (A2 Key)",
-    cefr: "A2+",
-    lexileRange: "510L-600L",
-    oxfordTree: "Level 7 / 8 / 9",
-    raz: "N-O",
-    heinemann: "G2 (Level K-N)",
-    recommendedGrade: "五年级",
-    lexileMin: 510,
+    raz: "L",
+    heinemann: "G2 (Level E-F)",
+    recommendedAge: "7-7.5岁",
+    recommendedGrade: "四年级",
+  },
+  {
+    oxfordLevel: "Level 9",
+    lexileRange: "550L-600L",
+    lexileMin: 550,
     lexileMax: 600,
-  },
-  {
-    qiqixueLevel: "L9",
-    chinaStandard: "三级 (起步)",
+    cefr: "A2+ / B1",
+    chinaStandard: "二级+ (强化) / 三级 (起步)",
     cambridgeExam: "KET (A2 Key)",
-    cefr: "B1",
-    lexileRange: "530L-650L",
-    oxfordTree: "Level 8 / 9 / 10",
-    raz: "P-Q",
-    heinemann: "-",
-    recommendedGrade: "五年级/六年级",
-    lexileMin: 530,
-    lexileMax: 650,
+    raz: "M",
+    heinemann: "G2 (Level G-H)",
+    recommendedAge: "7.5-8.5岁",
+    recommendedGrade: "四年级/五年级",
   },
   {
-    qiqixueLevel: "L10",
+    oxfordLevel: "Level 10",
+    lexileRange: "590L-650L",
+    lexileMin: 590,
+    lexileMax: 650,
+    cefr: "B1",
+    chinaStandard: "三级 (起步)",
+    cambridgeExam: "KET / PET",
+    raz: "N",
+    heinemann: "G2 (Level I-J)",
+    recommendedAge: "8-8.5岁",
+    recommendedGrade: "五年级",
+  },
+  {
+    oxfordLevel: "Level 11",
+    lexileRange: "600L-670L",
+    lexileMin: 600,
+    lexileMax: 670,
+    cefr: "B1",
+    chinaStandard: "三级 (起步/进阶)",
+    cambridgeExam: "PET (B1 Preliminary)",
+    raz: "O",
+    heinemann: "G2 (Level K-L)",
+    recommendedAge: "8.5-9岁",
+    recommendedGrade: "五年级/六年级",
+  },
+  {
+    oxfordLevel: "Level 12",
+    lexileRange: "610L-690L",
+    lexileMin: 610,
+    lexileMax: 690,
+    cefr: "B1",
     chinaStandard: "三级 (进阶)",
     cambridgeExam: "PET (B1 Preliminary)",
-    cefr: "B1",
-    lexileRange: "550L-670L",
-    oxfordTree: "Level 9 / 10 / 11",
-    raz: "R-S",
-    heinemann: "-",
+    raz: "P",
+    heinemann: "G2 (Level M-N)",
+    recommendedAge: "9-9.5岁",
     recommendedGrade: "六年级",
-    lexileMin: 550,
-    lexileMax: 670,
   },
   {
-    qiqixueLevel: "L11",
+    oxfordLevel: "Level 13",
+    lexileRange: "670L-730L",
+    lexileMin: 670,
+    lexileMax: 730,
+    cefr: "B1+",
     chinaStandard: "三级+ (强化)",
     cambridgeExam: "PET (B1 Preliminary)",
-    cefr: "B1+",
-    lexileRange: "590L-730L",
-    oxfordTree: "Level 10 / 11 / 12 / 13",
-    raz: "T-U",
+    raz: "Q",
     heinemann: "-",
-    recommendedGrade: "初一",
-    lexileMin: 590,
-    lexileMax: 730,
+    recommendedAge: "9.5-10岁",
+    recommendedGrade: "六年级/初一",
   },
   {
-    qiqixueLevel: "L12",
+    oxfordLevel: "Level 14",
+    lexileRange: "700L-740L",
+    lexileMin: 700,
+    lexileMax: 740,
+    cefr: "B1+ / B2",
+    chinaStandard: "三级+ (强化) / 提高级",
+    cambridgeExam: "PET / FCE",
+    raz: "R",
+    heinemann: "-",
+    recommendedAge: "10-10.5岁",
+    recommendedGrade: "初一",
+  },
+  {
+    oxfordLevel: "Level 15",
+    lexileRange: "710L-750L",
+    lexileMin: 710,
+    lexileMax: 750,
+    cefr: "B2",
     chinaStandard: "提高级",
     cambridgeExam: "FCE (B2 First)",
-    cefr: "B2",
-    lexileRange: "610L-850L+",
-    oxfordTree: "Level 12-20",
-    raz: "V-Z",
+    raz: "S",
     heinemann: "-",
-    recommendedGrade: "初二+",
-    lexileMin: 610,
-    lexileMax: 1000,
+    recommendedAge: "10.5-11岁",
+    recommendedGrade: "初一/初二",
+  },
+  {
+    oxfordLevel: "Level 16",
+    lexileRange: "720L-760L",
+    lexileMin: 720,
+    lexileMax: 760,
+    cefr: "B2",
+    chinaStandard: "提高级",
+    cambridgeExam: "FCE (B2 First)",
+    raz: "T",
+    heinemann: "-",
+    recommendedAge: "10.5-11岁",
+    recommendedGrade: "初一/初二",
+  },
+  {
+    oxfordLevel: "Level 17",
+    lexileRange: "730L-790L",
+    lexileMin: 730,
+    lexileMax: 790,
+    cefr: "B2",
+    chinaStandard: "提高级",
+    cambridgeExam: "FCE (B2 First)",
+    raz: "U",
+    heinemann: "-",
+    recommendedAge: "11-12岁",
+    recommendedGrade: "初二",
+  },
+  {
+    oxfordLevel: "Level 18",
+    lexileRange: "790L-870L",
+    lexileMin: 790,
+    lexileMax: 870,
+    cefr: "B2+",
+    chinaStandard: "提高级",
+    cambridgeExam: "FCE (B2 First)",
+    raz: "V",
+    heinemann: "-",
+    recommendedAge: "11-12岁",
+    recommendedGrade: "初二/初三",
+  },
+  {
+    oxfordLevel: "Level 19",
+    lexileRange: "800L-840L",
+    lexileMin: 800,
+    lexileMax: 840,
+    cefr: "B2+",
+    chinaStandard: "提高级",
+    cambridgeExam: "FCE / CAE",
+    raz: "W-X",
+    heinemann: "-",
+    recommendedAge: "11-12岁",
+    recommendedGrade: "初三",
+  },
+  {
+    oxfordLevel: "Level 20",
+    lexileRange: "820L-850L",
+    lexileMin: 820,
+    lexileMax: 850,
+    cefr: "B2+",
+    chinaStandard: "提高级",
+    cambridgeExam: "FCE / CAE",
+    raz: "Y-Z",
+    heinemann: "-",
+    recommendedAge: "11-12岁",
+    recommendedGrade: "初三+",
   },
 ];
 
@@ -181,11 +298,19 @@ export const gradingLevels: GradingLevel[] = [
  * 根据蓝思值查询推荐级别
  */
 export function findLevelByLexile(lexileValue: number): GradingLevel | null {
-  return (
-    gradingLevels.find(
-      (level) => lexileValue >= level.lexileMin && lexileValue <= level.lexileMax
-    ) || null
+  // 查找蓝思值范围包含输入值的级别
+  const matches = gradingLevels.filter(
+    (level) => lexileValue >= level.lexileMin && lexileValue <= level.lexileMax
   );
+  // 如果有多个匹配，返回最接近的（中间值最接近的）
+  if (matches.length > 0) {
+    return matches.reduce((prev, curr) => {
+      const prevMid = (prev.lexileMin + prev.lexileMax) / 2;
+      const currMid = (curr.lexileMin + curr.lexileMax) / 2;
+      return Math.abs(lexileValue - currMid) < Math.abs(lexileValue - prevMid) ? curr : prev;
+    });
+  }
+  return null;
 }
 
 /**
@@ -213,6 +338,13 @@ export function findLevelsByCambridge(exam: string): GradingLevel[] {
   );
 }
 
+/**
+ * 根据牛津树级别查询
+ */
+export function findLevelByOxford(oxfordLevel: string): GradingLevel | null {
+  return gradingLevels.find((level) => level.oxfordLevel === oxfordLevel) || null;
+}
+
 // 体系详情数据
 
 export interface SystemInfo {
@@ -225,15 +357,17 @@ export interface SystemInfo {
 
 export const systemsInfo: SystemInfo[] = [
   {
-    id: "china-standard",
-    name: "中国新课标 (2022年版2025年修订)",
+    id: "oxford-tree",
+    name: "牛津阅读树 (Oxford Reading Tree)",
     description:
-      "新课标将义务教育阶段的英语课程目标分为三级，并提出了'预备级'以适应学前及低年级需求。",
+      "故事性强，人物性格鲜明（Biff, Chip, Kipper），完整的 Level 1-20 体系。蓝思值范围从 BR 到 850L，适合从启蒙到初中阶段的英语学习者。",
     features: [
-      "预备级：感知语音，积累基础词汇，培养阅读兴趣",
-      "一级：识别拼读规则，理解简单句，约500词",
-      "二级：理解段落大意，借助图片推断，约800-1000词",
-      "三级：分析语篇结构，评价观点，约1600-2000词",
+      "连续剧式人物设定",
+      "幽默感强",
+      "适合培养阅读兴趣",
+      "Fiction 为主",
+      "Level 1-20 完整体系",
+      "蓝思值范围：BR-850L",
     ],
   },
   {
@@ -250,17 +384,15 @@ export const systemsInfo: SystemInfo[] = [
     website: "https://lexile.com/",
   },
   {
-    id: "oxford-tree",
-    name: "牛津阅读树 (Oxford Reading Tree)",
+    id: "china-standard",
+    name: "中国新课标 (2022年版2025年修订)",
     description:
-      "故事性强，人物性格鲜明（Biff, Chip, Kipper），难度曲线L1-L3坡度极缓，L4-L6难度适中，L7-L9难度跃升明显。注意：牛津树 Level 8-12 的蓝思值范围高度重叠（530-690L），并非线性递增。",
+      "新课标将义务教育阶段的英语课程目标分为三级，并提出了'预备级'以适应学前及低年级需求。",
     features: [
-      "连续剧式人物设定",
-      "幽默感强",
-      "适合培养阅读兴趣",
-      "Fiction 为主",
-      "Level 1-20 完整体系",
-      "蓝思值范围：BR-850L",
+      "预备级：感知语音，积累基础词汇，培养阅读兴趣",
+      "一级：识别拼读规则，理解简单句，约500词",
+      "二级：理解段落大意，借助图片推断，约800-1000词",
+      "三级：分析语篇结构，评价观点，约1600-2000词",
     ],
   },
   {

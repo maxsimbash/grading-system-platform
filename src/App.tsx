@@ -191,12 +191,11 @@ function App() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2 border-gray-200">
-                  <th className="px-4 py-3 text-left font-bold text-gray-900">奇奇学</th>
+                  <th className="px-4 py-3 text-left font-bold text-gray-900">牛津树</th>
+                  <th className="px-4 py-3 text-left font-bold text-gray-900">蓝思值</th>
+                  <th className="px-4 py-3 text-left font-bold text-gray-900">CEFR</th>
                   <th className="px-4 py-3 text-left font-bold text-gray-900">新课标</th>
                   <th className="px-4 py-3 text-left font-bold text-gray-900">剑桥考试</th>
-                  <th className="px-4 py-3 text-left font-bold text-gray-900">CEFR</th>
-                  <th className="px-4 py-3 text-left font-bold text-gray-900">蓝思值</th>
-                  <th className="px-4 py-3 text-left font-bold text-gray-900">牛津树</th>
                   <th className="px-4 py-3 text-left font-bold text-gray-900">RAZ</th>
                   <th className="px-4 py-3 text-left font-bold text-gray-900">海尼曼</th>
                   <th className="px-4 py-3 text-left font-bold text-gray-900">推荐年级</th>
@@ -205,17 +204,16 @@ function App() {
               <tbody>
                 {filteredLevels.map((level, index) => (
                   <tr
-                    key={level.qiqixueLevel}
+                    key={level.oxfordLevel}
                     className={`border-b hover:bg-blue-50 transition-colors ${
                       index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                     }`}
                   >
-                    <td className="px-4 py-3 font-bold text-blue-600">{level.qiqixueLevel}</td>
+                    <td className="px-4 py-3 font-bold text-blue-600">{level.oxfordLevel}</td>
+                    <td className="px-4 py-3 text-gray-700">{level.lexileRange}</td>
+                    <td className="px-4 py-3 font-semibold text-purple-600">{level.cefr}</td>
                     <td className="px-4 py-3 text-gray-700">{level.chinaStandard}</td>
                     <td className="px-4 py-3 text-gray-700">{level.cambridgeExam}</td>
-                    <td className="px-4 py-3 font-semibold text-purple-600">{level.cefr}</td>
-                    <td className="px-4 py-3 text-gray-700">{level.lexileRange}</td>
-                    <td className="px-4 py-3 text-gray-700">{level.oxfordTree}</td>
                     <td className="px-4 py-3 text-gray-700">{level.raz}</td>
                     <td className="px-4 py-3 text-gray-700">{level.heinemann}</td>
                     <td className="px-4 py-3 text-gray-700">{level.recommendedGrade}</td>
