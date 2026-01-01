@@ -97,29 +97,29 @@ export function AssessmentModal({ isOpen, onClose, onComplete }: AssessmentModal
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden animate-scale-up">
+      <div className="bg-white rounded-[24px] md:rounded-3xl w-full max-w-lg shadow-apple-lg overflow-hidden animate-scale-up border border-gray-100/50">
         {/* Header */}
-        <div className="bg-[#f5f5f7] px-8 py-6 flex items-center justify-between border-b border-gray-100">
+        <div className="bg-[#f5f5f7] px-5 py-4 md:px-8 md:py-6 flex items-center justify-between border-b border-gray-200/50">
           <div className="flex items-center space-x-3">
-            <div className="bg-[#0071e3] p-2 rounded-full">
-              <BookOpen className="w-5 h-5 text-white" />
+            <div className="bg-[#0071e3] p-1.5 md:p-2 rounded-full shadow-sm">
+              <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-white" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-[#1d1d1f]">英语水平自测</h3>
-              <p className="text-xs text-[#86868b]">第 {currentStep + 1} / {questions.length} 题</p>
+              <h3 className="text-base md:text-lg font-bold text-[#1d1d1f]">英语水平自测</h3>
+              <p className="text-[10px] md:text-xs text-[#86868b]">第 {currentStep + 1} / {questions.length} 题</p>
             </div>
           </div>
           <button 
             onClick={onClose}
-            className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-200 rounded-full transition-colors active:scale-90"
           >
             <X className="w-5 h-5 text-[#86868b]" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-8">
-          <h4 className="text-xl font-bold text-[#1d1d1f] mb-6 leading-tight">
+        <div className="p-5 md:p-8">
+          <h4 className="text-lg md:text-xl font-bold text-[#1d1d1f] mb-6 leading-snug">
             {currentQuestion.text}
           </h4>
 
@@ -128,22 +128,22 @@ export function AssessmentModal({ isOpen, onClose, onComplete }: AssessmentModal
               <button
                 key={index}
                 onClick={() => handleOptionClick(option.score)}
-                className="w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-[#0071e3]/30 hover:bg-[#f5f5f7] transition-all duration-200 flex items-center justify-between group active:scale-[0.99]"
+                className="w-full text-left px-4 py-3.5 md:p-4 rounded-xl border border-gray-200 hover:border-[#0071e3] hover:bg-blue-50/50 transition-all duration-200 flex items-center justify-between group active:scale-[0.98] active:bg-gray-50"
               >
-                <span className="font-medium text-[#1d1d1f]">
+                <span className="font-medium text-[#1d1d1f] text-sm md:text-base">
                   {option.text}
                 </span>
-                <ArrowRight className="w-4 h-4 text-[#86868b] opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0" />
+                <ArrowRight className="w-4 h-4 text-[#0071e3] opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0 md:opacity-0 md:group-hover:opacity-100 opacity-100 md:translate-x-0" />
               </button>
             ))}
           </div>
         </div>
 
-        {/* Footer removed since we auto-advance */}
-        <div className="h-2 bg-gray-100">
+        {/* Progress Bar */}
+        <div className="h-1.5 bg-gray-100">
             <div 
-                className="h-full bg-[#0071e3] transition-all duration-300 ease-out"
-                style={{ width: `${((currentStep) / questions.length) * 100}%` }}
+                className="h-full bg-[#0071e3] transition-all duration-500 ease-out rounded-r-full"
+                style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
             />
         </div>
       </div>

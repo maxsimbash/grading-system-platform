@@ -105,44 +105,44 @@ export function ORTPage({ onBack }: ORTPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]">
+    <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-gray-200/50">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 transition-all duration-300">
+        <div className="max-w-5xl mx-auto px-4 md:px-6 py-2.5 md:py-4 flex items-center h-12 md:h-auto">
           <button 
             onClick={onBack}
-            className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors group"
+            className="p-1 -ml-1 hover:bg-gray-100 rounded-full transition-colors group active:scale-90 flex-shrink-0"
           >
             <ArrowLeft className="w-5 h-5 text-[#86868b] group-hover:text-[#1d1d1f]" />
           </button>
-          <h1 className="ml-2 text-lg font-semibold tracking-tight text-gray-900">
+          <h1 className="ml-2 text-base md:text-lg font-semibold tracking-tight text-gray-900 truncate flex-1 text-center md:text-left pr-6 md:pr-0">
             Oxford Reading Tree 核心书目
           </h1>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-12">
+      <main className="max-w-4xl mx-auto px-4 md:px-6 py-8 md:py-12 safe-area-bottom">
         {/* Intro Card */}
-        <section className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 mb-12 animate-fade-in">
-          <div className="flex flex-col md:flex-row items-center gap-8">
+        <section className="bg-white rounded-[24px] md:rounded-3xl p-6 md:p-12 shadow-apple-md border border-gray-100 mb-8 md:mb-12 animate-fade-in">
+          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
             <div className="flex-1">
-              <span className="inline-block px-3 py-1 bg-blue-50 text-[#0071e3] text-xs font-bold rounded-full mb-4">
+              <span className="inline-block px-3 py-1 bg-blue-50 text-[#0071e3] text-[10px] md:text-xs font-bold rounded-full mb-3 md:mb-4">
                 Global Best Seller
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[#1d1d1f]">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight mb-3 md:mb-4 text-[#1d1d1f]">
                 Biff, Chip & Kipper Stories
               </h2>
-              <p className="text-lg text-[#86868b] leading-relaxed">
+              <p className="text-base md:text-lg text-[#86868b] leading-relaxed">
                 牛津阅读树 (ORT) 是英国 80% 小学使用的母语学习教材。
                 这套分级读物以 Biff, Chip 和 Kipper 一家人的生活为主线，
                 故事幽默风趣，语言循序渐进，是全球最受欢迎的英语启蒙读物之一。
               </p>
             </div>
             <div className="w-full md:w-1/3 flex justify-center">
-               <div className="relative w-48 h-48">
+               <div className="relative w-32 h-32 md:w-48 md:h-48">
                  <div className="absolute inset-0 bg-blue-50 rounded-full animate-pulse opacity-50"></div>
-                 <div className="absolute inset-4 bg-white rounded-full shadow-lg flex items-center justify-center border-4 border-blue-100">
-                    <BookOpen className="w-16 h-16 text-[#0071e3]" />
+                 <div className="absolute inset-3 md:inset-4 bg-white rounded-full shadow-lg flex items-center justify-center border-4 border-blue-100">
+                    <BookOpen className="w-12 h-12 md:w-16 md:h-16 text-[#0071e3]" />
                  </div>
                </div>
             </div>
@@ -150,57 +150,57 @@ export function ORTPage({ onBack }: ORTPageProps) {
         </section>
 
         {/* Levels Accordion */}
-        <section className="space-y-4 mb-20">
-          <div className="flex items-center space-x-2 mb-6">
-            <Library className="w-6 h-6 text-[#0071e3]" />
-            <h3 className="text-2xl font-bold">分级书目一览</h3>
+        <section className="space-y-4 mb-12 md:mb-20">
+          <div className="flex items-center space-x-2 mb-4 md:mb-6">
+            <Library className="w-5 h-5 md:w-6 md:h-6 text-[#0071e3]" />
+            <h3 className="text-xl md:text-2xl font-bold">分级书目一览</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {ortBooks.map((group) => (
               <div 
                 key={group.level}
-                className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300"
+                className="bg-white rounded-2xl shadow-apple-sm border border-gray-100 overflow-hidden transition-all duration-300"
               >
                 <button
                   onClick={() => toggleLevel(group.level)}
-                  className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors text-left"
+                  className="w-full flex items-center justify-between p-4 md:p-6 hover:bg-gray-50 transition-colors text-left active:bg-gray-100 touch-manipulation"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className={`px-3 py-1 rounded-lg text-sm font-bold ${group.color}`}>
+                  <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                    <span className={`px-2 py-1 md:px-3 md:py-1 rounded-lg text-xs md:text-sm font-bold flex-shrink-0 ${group.color}`}>
                       {group.level}
                     </span>
-                    <span className="text-[#86868b] text-sm md:text-base font-medium">
+                    <span className="text-[#86868b] text-sm md:text-base font-medium truncate">
                       {group.description}
                     </span>
                   </div>
                   {expandedLevel === group.level ? (
-                    <ChevronUp className="w-5 h-5 text-gray-400" />
+                    <ChevronUp className="w-5 h-5 text-gray-400 flex-shrink-0 ml-2" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                    <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0 ml-2" />
                   )}
                 </button>
 
                 {expandedLevel === group.level && (
-                  <div className="px-6 pb-6 pt-2 animate-slide-down">
-                    <div className="grid md:grid-cols-2 gap-4">
+                  <div className="px-4 md:px-6 pb-4 md:pb-6 pt-2 animate-slide-down">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                       {group.books.map((book, idx) => (
                         <a 
                           key={idx}
                           href={book.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-start p-4 rounded-xl border border-gray-100 hover:border-[#0071e3]/30 hover:bg-blue-50/30 transition-all group"
+                          className="flex items-start p-3 md:p-4 rounded-xl border border-gray-100 hover:border-[#0071e3]/30 hover:bg-blue-50/30 transition-all group active:scale-[0.98] touch-manipulation"
                         >
-                          <div className="bg-gray-100 rounded-lg w-12 h-16 flex-shrink-0 flex items-center justify-center mr-4">
-                            <BookOpen className="w-6 h-6 text-gray-400" />
+                          <div className="bg-gray-100 rounded-lg w-10 h-14 md:w-12 md:h-16 flex-shrink-0 flex items-center justify-center mr-3 md:mr-4">
+                            <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-gray-400" />
                           </div>
-                          <div className="flex-1">
-                            <h5 className="font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors flex items-center">
+                          <div className="flex-1 min-w-0">
+                            <h5 className="font-bold text-[#1d1d1f] text-sm md:text-base group-hover:text-[#0071e3] transition-colors flex items-center truncate">
                               {book.title}
                               <ExternalLink className="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </h5>
-                            <p className="text-xs text-[#86868b] mt-1">{book.type}</p>
+                            <p className="text-[10px] md:text-xs text-[#86868b] mt-1 truncate">{book.type}</p>
                           </div>
                         </a>
                       ))}
@@ -210,7 +210,7 @@ export function ORTPage({ onBack }: ORTPageProps) {
                             href="https://www.oxfordowl.co.uk/for-home/find-a-book/library-page/" 
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center text-sm font-medium text-[#0071e3] hover:underline"
+                            className="inline-flex items-center text-xs md:text-sm font-medium text-[#0071e3] hover:underline p-2"
                         >
                             访问 Oxford Owl 官网查看更多 <ExternalLink className="w-3 h-3 ml-1" />
                         </a>
