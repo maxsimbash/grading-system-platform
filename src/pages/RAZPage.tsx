@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, BookOpen, Layers, Microscope, Globe, ChevronDown, ChevronUp, Star } from 'lucide-react';
+import { ArrowLeft, BookOpen, Layers, Microscope, ChevronDown, ChevronUp, Star } from 'lucide-react';
 
 interface RAZPageProps {
   onBack: () => void;

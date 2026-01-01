@@ -1,4 +1,4 @@
-import { ArrowLeft, Globe, Layers, BarChart, BookOpen, UserCheck } from 'lucide-react';
+import { ArrowLeft, Layers, BarChart, Globe } from 'lucide-react';
 
 interface CEFRPageProps {
   onBack: () => void;

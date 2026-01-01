@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { X, CheckCircle, ArrowRight, BookOpen } from 'lucide-react';
-import { findLevelByLexile } from '../data/gradingData';
+import { X, ArrowRight, BookOpen } from 'lucide-react';
 
 interface Question {
   id: number;
@@ -72,7 +71,6 @@ interface AssessmentModalProps {
 export function AssessmentModal({ isOpen, onClose, onComplete }: AssessmentModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
   if (!isOpen) return null;
 

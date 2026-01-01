@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, BookOpen, ExternalLink, Library, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, BookOpen, ExternalLink, Library, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ORTPageProps {
   onBack: () => void;
