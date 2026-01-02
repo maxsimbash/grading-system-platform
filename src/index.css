@@ -8,6 +8,19 @@ body {
   color: #1d1d1f;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Mobile optimizations */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Mobile-specific body styles */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    position: relative;
+  }
 }
 
 @layer utilities {
@@ -44,6 +57,49 @@ body {
   .safe-area-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
+
+  /* Mobile touch optimizations */
+  .touch-optimized {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+
+  /* Mobile scroll optimizations */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Mobile text selection */
+  .mobile-text-selectable {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* Mobile button styles */
+  .mobile-button {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile input styles */
+  .mobile-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Mobile modal backdrop */
+  .mobile-backdrop {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }
 
 /* Animations */
@@ -72,6 +128,28 @@ body {
   to { opacity: 1; transform: translateY(0); max-height: 1000px; }
 }
 
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slide-out-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 113, 227, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(0, 113, 227, 0); }
+}
+
 .animate-fade-in {
   animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -90,4 +168,149 @@ body {
 
 .animate-slide-down {
   animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Mobile-specific responsive utilities */
+@media (max-width: 768px) {
+  .mobile-full-width {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .mobile-safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .mobile-header-height {
+    height: calc(48px + env(safe-area-inset-top));
+  }
+
+  .mobile-content-padding {
+    padding-top: calc(48px + env(safe-area-inset-top) + 1rem);
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .gpu-accelerated {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+  }
+}
+
+/* Force Mobile View - Simulates mobile viewport on desktop */
+.force-mobile-view {
+  max-width: 375px !important;
+  margin: 0 auto !important;
+  min-height: 100vh !important;
+  box-shadow: 0 0 0 1px #e5e5e7, 0 0 50px rgba(0, 0, 0, 0.1) !important;
+  background: #000 !important;
+  padding: 20px 0 !important;
+  position: relative !important;
+}
+
+.force-mobile-view > * {
+  max-width: 375px !important;
+  margin: 0 auto !important;
+  background: #f5f5f7 !important;
+  min-height: 100vh !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+}
+
+/* Force mobile styles when in force-mobile-view */
+.force-mobile-view .md\:text-6xl {
+  font-size: 1.875rem !important;
+  line-height: 2.25rem !important;
+}
+
+.force-mobile-view .md\:text-2xl {
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+}
+
+.force-mobile-view .md\:pt-24 {
+  padding-top: 2rem !important;
+}
+
+.force-mobile-view .md\:pb-16 {
+  padding-bottom: 2rem !important;
+}
+
+.force-mobile-view .md\:mb-10 {
+  margin-bottom: 2rem !important;
+}
+
+.force-mobile-view .md\:px-6 {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.force-mobile-view .md\:py-12 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.force-mobile-view .md\:grid-cols-4 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.force-mobile-view .md\:grid-cols-3 {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+.force-mobile-view .md\:grid-cols-2 {
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+.force-mobile-view .md\:flex {
+  display: none !important;
+}
+
+.force-mobile-view .md\:hidden {
+  display: block !important;
+}
+
+.force-mobile-view .hidden {
+  display: none !important;
+}
+
+/* Ensure mobile components are visible in force mobile view */
+.force-mobile-view [class*="mobile-"] {
+  display: block !important;
+}
+
+/* Hide desktop-only elements in force mobile view */
+.force-mobile-view .max-w-5xl {
+  max-width: 100% !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }

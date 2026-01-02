@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, ArrowRight, BookOpen } from 'lucide-react';
+import { useUIMode } from '../hooks/useUIMode';
 
 interface Question {
   id: number;
@@ -71,6 +72,7 @@ interface AssessmentModalProps {
 export function AssessmentModal({ isOpen, onClose, onComplete }: AssessmentModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const { isMobile } = useUIMode();
 
   if (!isOpen) return null;
 
@@ -95,6 +97,68 @@ export function AssessmentModal({ isOpen, onClose, onComplete }: AssessmentModal
     }
   };
 
+  // Mobile full-screen layout
+  if (isMobile) {
+    return (
+      <div className="fixed inset-0 z-[100] bg-white flex flex-col animate-fade-in">
+        {/* Fixed Header with Progress */}
+        <div className="bg-[#f5f5f7] px-4 py-3 flex items-center justify-between border-b border-gray-200/50 shrink-0">
+          <div className="flex items-center space-x-3">
+            <div className="bg-[#0071e3] p-2 rounded-full shadow-sm">
+              <BookOpen className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-[#1d1d1f]">英语水平自测</h3>
+              <p className="text-sm text-[#86868b]">第 {currentStep + 1} / {questions.length} 题</p>
+            </div>
+          </div>
+          <button 
+            onClick={onClose}
+            className="p-2 hover:bg-gray-200 rounded-full transition-colors active:scale-90"
+            aria-label="关闭"
+          >
+            <X className="w-6 h-6 text-[#86868b]" />
+          </button>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="h-2 bg-gray-100 shrink-0">
+          <div 
+            className="h-full bg-[#0071e3] transition-all duration-500 ease-out"
+            style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 p-6 flex flex-col justify-center">
+          <h4 className="text-2xl font-bold text-[#1d1d1f] mb-8 leading-tight text-center">
+            {currentQuestion.text}
+          </h4>
+
+          <div className="space-y-4">
+            {currentQuestion.options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleOptionClick(option.score)}
+                className="w-full text-left px-6 py-4 rounded-2xl border-2 border-gray-200 hover:border-[#0071e3] hover:bg-blue-50/50 transition-all duration-200 flex items-center justify-between group active:scale-[0.98] active:bg-gray-50 min-h-[56px]"
+                style={{ 
+                  minHeight: '56px',
+                  fontSize: '18px'
+                }}
+              >
+                <span className="font-medium text-[#1d1d1f] text-lg leading-relaxed">
+                  {option.text}
+                </span>
+                <ArrowRight className="w-5 h-5 text-[#0071e3] opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0" />
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop modal layout (existing)
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
       <div className="bg-white rounded-[24px] md:rounded-3xl w-full max-w-lg shadow-apple-lg overflow-hidden animate-scale-up border border-gray-100/50">
@@ -112,6 +176,7 @@ export function AssessmentModal({ isOpen, onClose, onComplete }: AssessmentModal
           <button 
             onClick={onClose}
             className="p-2 hover:bg-gray-200 rounded-full transition-colors active:scale-90"
+            aria-label="关闭"
           >
             <X className="w-5 h-5 text-[#86868b]" />
           </button>
